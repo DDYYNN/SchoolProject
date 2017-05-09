@@ -1,0 +1,123 @@
+nfa.txt
+
+0 1 1 - -
+1 0 - 2 -
+2 0 0 - 0
+end
+
+string.txt
+
+010
+01010
+01010111
+011
+0101001001001
+end
+
+
+
+output.txt
+
+No.
+Elements
+Final	Dead
+0:	1:
+0
+{ 0 }
+Final:1	Dead:0
+0: 1	1: 2
+
+1
+{ 1 }
+Final:0	Dead:0
+0: 2	1: 3
+
+2
+{ }
+Final:0	Dead:1
+0: 2	1: 2
+
+3
+{ 0 2 }
+Final:1	Dead:0
+0: 4	1: 2
+
+4
+{ 0 1 }
+Final:1	Dead:0
+0: 1	1: 3
+
+DFA : yes
+NFA : yes
+
+DFA : yes
+NFA : yes
+
+DFA : no
+NFA : no
+
+DFA : no
+NFA : no
+
+DFA : yes
+NFA : yes
+
+
+string2.txt
+
+10101010
+1010
+010
+1
+
+end
+
+nfa2.txt
+
+0 0 - - 1,4
+1 0 - 2 -
+2 0 3 - -
+3 0 - - 1,4
+4 1 - - -
+end
+
+out.txt
+
+No.
+Elements
+Final	Dead
+0:	1:
+1
+{ }
+Final: 0	Dead: 1
+0: 1	1: 1
+
+0
+{ 0 1 4 }
+Final: 1	Dead: 0
+0: 1	1: 2
+
+3
+{ 1 3 4 }
+Final: 1	Dead: 0
+0: 1	1: 2
+
+2
+{ 2 }
+Final: 0	Dead: 0
+0: 3	1: 1
+
+DFA : yes
+NFA : yes
+
+DFA : yes
+NFA : yes
+
+DFA : no
+NFA : no
+
+DFA : no
+NFA : no
+
+DFA : yes
+NFA : yes
