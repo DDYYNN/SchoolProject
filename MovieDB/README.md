@@ -1,71 +1,66 @@
-# MovieDatabase
+# Movie Database
 
-이 문서는 2016년 1학기 자료구조 과제 2번을 수행하기 위한 몇 가지 팁을 제공한다.
+## 개요
+이번 프로젝트는 Linked List를 사용해서 영화의 장르와 제목이 저장되는 데이터베이스를 구현합니다. 이 데이터베이스에서는 삽입, 삭제, 검색 연산이 가능해야하며, 각 항목이 영화의 장르와 제목에 따라 정렬된 순서로 저장되어야 합니다. Linked List를 이해하는 것이 과제의 목적입니다.
 
-## Skeleton
-
-주어진 스켈레톤 코드는 코드를 구조화할 수 있는 한 가지 방법을 보여주고 있다.
-과제를 완료하기 위해 `FIXME`로 표시된 부분의 코드를 채워 넣는 것으로 동작하는 프로그램을 만들 수 있다.
-필요하다면 `FIXME`로 표시되지 않은 부분에 코드를 추가하는 것도 가능하다.
-스켈레톤 코드는 과제를 시작하는 시작점을 제공할 뿐이다.
-
-빠른 피드백 루프를 위해 테스트를 단계별로 수행하는 것이 유용하다.
-이를 위해 일부 테스트 코드가 `AssignmentGuide.java` 파일에 제공되어 있다.
-
-## Compilation and Execution
-
-### Compilation
-
-컴파일은 아래와 같이 할 수 있다.
-
+## 데이터베이스 구조
+우선 각 장르마다 영화 제목에 따라 정렬된 리스트를 만듭니다.
 ```
-javac *.java
+(ACTION, BATMAN BEGINS, ONG-BAK, THE MATRIX)
+(DRAMA, MILLION DOLLAR BABY, THE AVIATOR)
+(HORROR, HELLRAISER)
+```
+그리고 위의 리스트들을 원소로 가지며, 장르에 따라 정렬된 리스트를 만듭니다.
+```
+( (ACTION, BATMAN BEGINS, ONG-BAK, THE MATRIX), (DRAMA, MILLION DOLLAR BABY, THE AVIATOR), (HORROR, HELLRAISER) )
 ```
 
-### Execution
+## 지원하는 명령어
+1. 삽입: INSERT %장르% %제목%
+해당 장르와 제목을 가진 영화를 삽입합니다. 이미 데이터베이스에 있는 영화와 장르, 제목이 모두 같으면 삽입하지 않습니다.
 
-과제 채점은 다음과 같이 이루어진다.
+2. 삭제: DELETE %장르% %제목%
+해당 장르와 제목을 가진 영화를 삭제합니다. 각 장르의 마지막 영화가 삭제되면 장르도 삭제됩니다.
+
+3. 검색: SEARCH %검색어%
+제목에 검색어가 들어 있는 모든 영화들의 장르와 제목을 정렬된 순서로 출력합니다.
+
+4. 출력: PRINT
+데이터베이스의 전체 내용을 정렬된 순서로 출력합니다.
+
+5. 종료: QUIT
+프로그램을 종료합니다.
+
+## 입출력 형식
+1. 프로그램을 실행하면 한줄로 된 명령어를 입력받습니다.
+2. 명령어를 입력받으면 적절한 작업을 수행하고 SEARCH와 PRINT는 그 결과를 출력합니다.
+3. 명령어의 앞뒤 및 명령어와 인자들 사이에는 0개 이상의 공백이 들어갈 수 있습니다.
+4. 모든 영화들의 장르와 제목에는 '%'와 ',' 문자가 들어가지 않습니다.
+5. 영화 목록을 출력할 때에는 한 줄에 (장르, 제목)과 같이 하나의 영화만 출력하고, 결과가 더 있으면 다음 줄에 계속 해서 같은 형식으로 출력합니다. 데이터베이스가 비어있으면 EMPTY로 출력합니다.
+6. SEARCH시에 검색어가 들어 있는 영화가 없다면, EMPTY로 출력합니다.
+7. 모든 입력은 대문자로 들어온다고 가정하셔도 좋습니다.
+8. 영화 목록을 정렬 할 때에는 장르로 먼저 정렬하고, 장르가 같을 때에는 제목으로 정렬합니다. 참고로 데이터베이스를 제대로 구현한다면 목록을 정렬하기 위해서 별도의 작업은 필요치 않습니다.
+9. 출력할 때에는 한줄 한줄이 괄호로 묶여있어야 하며 ,(콤마) 뒤의 공백 한칸을 반드시 띄워야 합니다.
+아래 예시의 형식과 정확히 일치하게 만드세요.
+10. 한 명령어의 실행이 끝나면 QUIT를 입력받을때까지 다시 입력을 받습니다.
 
 ```
-java MovieDatabaseConsole
+$ java MovieDatabaseConsole                 <- 프로그램 실행
+INSERT %ACTION% %BATMAN BEGINS%             <- 이렇게 입력
+INSERT %ACTION% %THE MATRIX%                <- 이렇게 입력
+INSERT %DRAMA% %MILLION DOLLAR BABY%        <- 이렇게 입력
+SEARCH %BA%                                 <- 이렇게 입력하면
+(ACTION, BATMAN BEGINS)                     <- 이렇게 출력
+(DRAMA, MILLION DOLLAR BABY)                <- 이렇게 출력한다.
+DELETE %DRAMA% %MILLION DOLLAR BABY%        <- 이렇게 입력
+PRINT                                       <- 이렇게 입력하면
+(ACTION, BATMAN BEGINS)                     <- 이렇게 출력
+(ACTION, THE MATRIX)                        <- 이렇게 출력한다.
+QUIT                                        <- 이렇게 입력하면
+$                                           <- 종료한다.
 ```
 
-### Test
 
-과제 코드를 작성하며 도움이 될만한 테스트 몇 개가 준비되어 있다. 이는 아래와 같이 실행한다.
+## 추가
+$ java MovieDatabaseConsole 로 실행하시면 됩니다.
 
-```
-java -ea AssignmentGuide
-```
-
-`-ea` 옵션은 `assert` 문을 사용하기 위해 필요하다.
-
-### Eclipse
-
-이클립스에서 스켈레톤 코드를 임포트하는 방법은 아래와 같다.
-
-- File - New Project
-- Java - Java Project - Next
-- Project name을 정한다 - 적당한 Location을 정한다 - Project layout의 Use project folder as root for sources and class files을 선택한다 - Next
-- Finish
-- 프로젝트 이름 (가령 MovieDatabase) 우클릭 - Import
-- General - File System
-- From directory에서 스켈레톤 코드가 위치한 디렉토리를 선택한다 - `.java` 파일을 모두 선택한다 - Finish
-
-## Usage
-
-반드시 수정해야 하는 파일 목록은 아래와 같다.
-
-- `MovieDB.java`
-- `Node.java`
-
-기초적인 링크드리스트는 `MyLinkedList`에 구현이 되어있다. 이를 참조하여 `MovieDB`를 완성할 수 있다.
-
-## Contributors
-
-This project is contributed by the following people (in order of contribution).
-
-- stania <stania.pe.kr AT gmail DOT com>
-- shurain <shurain AT gmail DOT com>
-- wookayin <wookayin AT gmail DOT com>
-- ipkn <ipknhama AT gmail DOT com>
